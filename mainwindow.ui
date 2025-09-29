@@ -143,6 +143,7 @@
      <string>Opzioni</string>
     </property>
     <addaction name="actionModifica_configurazioni"/>
+    <addaction name="separator"/>
    </widget>
    <widget class="QMenu" name="menuInfo">
     <property name="title">
@@ -162,6 +163,11 @@
   <action name="actionModifica_configurazioni">
    <property name="text">
     <string>Modifica configurazioni</string>
+   </property>
+  </action>
+  <action name="actionEsci">
+   <property name="text">
+    <string>Esci</string>
    </property>
   </action>
  </widget>

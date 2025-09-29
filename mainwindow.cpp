@@ -43,9 +43,10 @@ void MainWindow::info(){
 
 void MainWindow::modificaConfig(){
     QString stopPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/config";
-    QMessageBox::question(this, "Attenzione", "Modificare il file di configurazione in maniera non corretta potrebbe portare a comportamenti imprevisti dell'applicazione: farlo solo se si è utenti esperti.\nSi consiglia di utilizzare percorsi assoluti.\nContinuare?");
+    QMessageBox::StandardButton reply = QMessageBox::question(this, "Attenzione", "Modificare il file di configurazione in maniera non corretta potrebbe portare a comportamenti imprevisti dell'applicazione: farlo solo se si è utenti esperti.\nSi consiglia di utilizzare percorsi assoluti.\nContinuare?");
     qDebug () << stopPath ;
-    QDesktopServices::openUrl(QUrl::fromLocalFile(stopPath));
+    if (reply == QMessageBox::Yes)
+        QDesktopServices::openUrl(QUrl::fromLocalFile(stopPath));
 }
 
 void MainWindow::startCountdown() {
@@ -60,7 +61,14 @@ void MainWindow::startCountdown() {
 
     QString stopPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/stop.flag";
     // Mostra avviso
-    QMessageBox::information(this, "Lo sapevi che...", randomSentence(), "Andiamo!");
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Lo sapevi che...");
+    msgBox.setText(randomSentence());
+    msgBox.setIcon(QMessageBox::Information);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.button(QMessageBox::Ok)->setText("Andiamo!");
+
+    msgBox.exec();
     qDebug() << stopPath ;
     QFile::remove(stopPath);
     startMyTask();
@@ -104,7 +112,16 @@ void MainWindow::updateCountdown() {
         f.open(QIODevice::WriteOnly);
         f.write("stop");
         f.close();
-        QMessageBox::critical(this, "Timer scaduto", "Il nostro tempo è terminato", "Oh no!");
+
+        QMessageBox msgBox;
+        msgBox.setWindowTitle("Timer scaduto");
+        msgBox.setText("Il nostro tempo è terminato");
+        msgBox.setIcon(QMessageBox::Critical);
+        msgBox.setStandardButtons(QMessageBox::Ok);
+        msgBox.button(QMessageBox::Ok)->setText("Oh no!");
+
+        msgBox.exec();
+
         ui->startButton->setEnabled(true);
         ui->minutesSpinBox->setEnabled(true);
         ui->secondsSpinBox->setEnabled(true);

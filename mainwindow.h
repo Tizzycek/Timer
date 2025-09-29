@@ -22,6 +22,7 @@ private slots:
     void startMyTask();        // quando il tempo scade
     void info();
     void modificaConfig();
+    //void chiudi();
 
 private:
     Ui::MainWindow *ui;

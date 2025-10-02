@@ -271,11 +271,11 @@ FrameNode* load_frames(const char *dir_path/*, int *out_frame_count*/) {
 }
 
 // Riproduzione (Linux, usa printf e ANSI escape)
-void play_frames(FrameNode *head, int fps) {
+void play_frames(FrameNode *head, int fps, const StopFn stop_fn) {
     if (fps <= 0) fps = 1;
     int delay_us = 1000000 / fps;
 
-    while (head != NULL) {
+    while (head != NULL && !stop_fn()) {
         printf("\033[H\033[J"); // clear screen ANSI
 
         for (int i = 0; i < head->frame.line_count; i++) {

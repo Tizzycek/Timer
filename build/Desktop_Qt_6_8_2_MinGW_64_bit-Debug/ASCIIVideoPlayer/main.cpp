@@ -14,11 +14,11 @@
 #include "video.h"
 #include <thread>
 #include <fstream>
-#include <shlobj.h>
 
 #ifdef _WIN32
 #define FILE ".\\config"
 #define SLASH "\\"
+#include <shlobj.h>
 #else
 #define FILE "./config"
 #define SLASH "/"
@@ -81,6 +81,7 @@ bool load_info(string& frame_path, string& music_path, unsigned int& fps) {
     return true;
 }
 
+#ifdef _WIN32
 string getAppDataPath(const string& subfolder) {
     char path[MAX_PATH];
     if (SUCCEEDED(SHGetFolderPathA(nullptr, CSIDL_APPDATA, nullptr, 0, path))) {
@@ -93,6 +94,15 @@ string getAppDataPath(const string& subfolder) {
         return "";
     }
 }
+#else
+string getAppDataPath(const string& subfolder) {
+    const char* home = getenv("XDG_CONFIG_HOME");
+    string base = home ? string(home) : (string(getenv("HOME")) + SLASH + ".config");
+    string fullPath = base + SLASH + subfolder;
+    filesystem::create_directories(fullPath);
+    return fullPath;
+}
+#endif
 
 void monitorStopFile() {
     const string stopDir = getAppDataPath("Timer");

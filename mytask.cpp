@@ -6,7 +6,7 @@
 void MyTask::run() {
     QString program = "cmd.exe";
     QStringList arguments;
-    arguments << "/C" << "start" << "cmd" << "/C" << ".\\executable\\test.exe";
+    arguments << "/C" << "start" << "cmd" << "/C" << ".\\ASCIIVideoPlayer\\ASCIIVideoPlayer.exe";
 
     bool success = QProcess::startDetached(program, arguments);
 

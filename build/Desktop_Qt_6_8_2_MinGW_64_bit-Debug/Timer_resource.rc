@@ -1,6 +1,6 @@
 #include <windows.h>
 
-IDI_ICON1	ICON	"F:\\Progetti Qt\\Timer\\pendulum.ico"
+IDI_ICON1	ICON	"F:\\Qt\\Timer\\pendulum.ico"
 
 VS_VERSION_INFO VERSIONINFO
 	FILEVERSION 0,0,0,0

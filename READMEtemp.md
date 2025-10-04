@@ -100,6 +100,44 @@ Quello che ho fatto e condiviso mi ha fatto sentire così bene che non può esse
 
 ## Struttura e framework
 
+Come framework per comporre tutto è stato utilizzato `Qt`. 
 
+Per quanto riguarda invece il riproduttore di video in ASCII, è stato riutilizzato, riadattandolo ove necessario, il codice di [ASCIIVideoPlayer](https://github.com/Tizzycek/ASCIIVideoPlayer)
 
-### Compilazione pregressa di ASCIIVideoPlayer
+### ASCIIVideoPlayer come applicazione esterna
+
+Quanto a interfacce grafiche, prima d'ora ho avuto modo di lavorare utilizzando `Java Swing`. 
+
+Questo framework permette di avere in esecuzione le applicazioni sia da terminale sia da interfaccia grafica per utente. Senza informarmi troppo, il pensiero è stato di utilizzare Qt allo stesso modo, cercando di avviare il riproduttore di video in caratteri ASCII dallo stesso terminale.
+
+È quindi iniziato il processo di integrazione del codice già esistente nel codice globale. \
+Durante dei test, effettivamente, in modalità di debug funzionerebbe anche. A mio malgrado ho però scoperto che Qt ordinariamente non visualizza l'esecuzione in terminale, ma lo termina ed esegue solamente l'interfaccia grafica.
+
+La procedura è quindi stata la separazione delle due applicazioni. 
+
+#### Riadattamento di ASCIIVideoPlayer
+
+Come premesso, il codice di ASCIIVideoPlayer è esterno. 
+
+Esso differisce dalla versione originale attraverso i seguenti punti:
+
+- Nella versione definitiva, il file di configurazione non è più nella stessa cartella dell'eseguibile, ma in una directory nello spazio utente;
+- I thread che gestiscono audio e video vengono lanciati di continuo al loro termine;
+- Un terzo thread controlla continuamente l'esistenza di un file `stop.flag`, segnale di terminazione del programma. Al suo esito positivo, imposta una variabile globale di controllo che sarà letta dai due thread che concluderanno la loro esecuzione, terminando il programma.
+
+#### Lancio dell'eseguibile
+
+La classe `MyTask` provvede a chiamare il terminale che chiamerà a sua volta l'eseguibile di ASCIIVideoPlayer. 
+
+È formata dal metodo `run()`, che si occupa di lanciare il terminale con comando di chiusura a fine esecuzione. 
+
+Controlla il successo dell'operazione e termina. 
+
+Una volta lanciato, l'eseguibile è completamente indipendente dal framework principale. 
+
+Allo scadere del tempo, il gestore del timer creerà un file `stop.flag`, vuoto ma indicante ad ASCIIVideoPlayer la terminazione della sua esecuzione. 
+
+#### Differenza tra Debug e Release
+
+- Nella versione di **Debug**, il codice di ASCIIVideoPlayer prevede che il file delle configurazioni sia nella stessa directory da cui viene lanciato l'eseguibile.
+- Nella versione di **Release**, il codice di ASCIIVideoPlayer prevede che il file delle configurazioni sia nella cartella finale in cui sarà presente dopo l'installazione, ovvero la directory delle informazioni del programma salvate nello spazio utente (la stessa directory in cui apparirà il file `stop.flag`).

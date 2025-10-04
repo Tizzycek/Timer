@@ -3,10 +3,12 @@
 #include <QDebug>
 #include <QProcess>
 
+#ifdef _WIN32
 void MyTask::run() {
     QString program = "cmd.exe";
     QStringList arguments;
-    arguments << "/C" << "start" << "cmd" << "/C" << ".\\ASCIIVideoPlayer\\ASCIIVideoPlayer.exe";
+    arguments << "/C" << "start" << "cmd" << "/C" << ".\\ASCIIVideoPlayer\\ASCIIVideoPlayer";
+    qDebug() << arguments;
 
     bool success = QProcess::startDetached(program, arguments);
 
@@ -15,5 +17,14 @@ void MyTask::run() {
         abort();
     }
 
-    this->deleteLater();
+    this->deleteLater();   
 }
+#else
+void MyTask::run(){
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Error");
+    msgBox.setText("To be implemented!");
+    msgBox.setIcon(QMessageBox::Critical);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+}
+#endif

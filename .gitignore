@@ -53,6 +53,6 @@ compile_commands.json
 
 *_qmlcache.qrc
 
-/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/executable/default_video
+/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/ASCIIVideoPlayer/default_video
 
 *.mp3

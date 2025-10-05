@@ -5,6 +5,8 @@
       <excludeFolder url="file://$MODULE_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qm" />
       <excludeFolder url="file://$MODULE_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/.qm" />
       <excludeFolder url="file://$MODULE_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/executable/default_video" />
+      <excludeFolder url="file://$MODULE_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/ASCIIVideoPlayer/SDL2" />
+      <excludeFolder url="file://$MODULE_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/ASCIIVideoPlayer/SDL2_mixer" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

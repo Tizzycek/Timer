@@ -30,7 +30,7 @@ Source: "libstdc++-6.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "libwinpthread-1.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Secondo programma e risorse
-Source: "executable\*"; DestDir: "{app}\executable"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "ASCIIVideoPlayer\*"; DestDir: "{app}\ASCIIVideoPlayer"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 Source: "config"; DestDir: "{userappdata}\Timer"; Flags: ignoreversion
 

@@ -148,4 +148,32 @@ Allo scadere del tempo, il gestore del timer creerà un file `stop.flag`, vuoto 
 #### Differenza tra Debug e Release
 
 - Nella versione di **Debug**, il codice di ASCIIVideoPlayer prevede che il file delle configurazioni sia nella stessa directory da cui viene lanciato l'eseguibile.
-- Nella versione di **Release**, il codice di ASCIIVideoPlayer prevede che il file delle configurazioni sia nella cartella finale in cui sarà presente dopo l'installazione, ovvero la directory delle informazioni del programma salvate nello spazio utente (la stessa directory in cui apparirà il file `stop.flag`).
+- Nella versione di **Release**, il codice di _ASCIIVideoPlayer_ prevede che il file delle configurazioni sia nella cartella finale in cui sarà presente dopo l'installazione, ovvero la directory delle informazioni del programma salvate nello spazio utente (la stessa directory in cui apparirà il file `stop.flag`).
+
+#### Piccolo problema in fase di test
+
+Durante la fase di test, è emerso un piccolo problema.
+
+In caso di avvio dell'applicazione in modalità release direttamente da `Qt Creator`, *ASCIIVideoPlayer* potrebbe non essere lanciato. 
+
+Basterà testare il tutto lanciando l'eseguibile direttamente dalla cartella, e dovrebbe essere eseguito tutto correttamente.
+
+## Installazione
+
+L'installazione è molto semplice, in quanto è sufficiente scaricare la _release_ e seguire la procedura automatizzata.
+
+> Alla richiesta dei permessi di amministratore, potrebbe essere notificato che l'applicazione non è sicura. Questo è normale, in quanto sprovvista di firma digitale.
+> 
+> In ogni caso, la versione è la stessa che vedete pubblicata su GitHub. Se non vi fidaste, potreste provare a compilarla voi stessi.
+
+### Configurazione di InnoSetup
+
+Per distribuire l'applicazione e permettere l'installazione agli utenti finali, è stato utilizzato `InnoSetup`. 
+
+> Attualmente, è disponibile una versione solo per Windows.
+
+Il file di configurazione si trova nella cartella di release. Provvede a:
+- copiare l'eseguibile e tutte le sue dipendenze;
+- creare, durante l'installazione, una cartella locale per il file delle configurazioni. 
+
+Ovviamente, prima di configurare il file, è opportuno testare il funzionamento del codice, prestando attenzione all'inclusione di tutte le dipendenze necessarie per il corretto funzionamento dell'applicazione. 

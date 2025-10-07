@@ -11,11 +11,13 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    mytask.cpp
+    mytask.cpp \
+    timercontroller.cpp
 
 HEADERS += \
     mainwindow.h \
-    mytask.h
+    mytask.h \
+    timercontroller.h
 
 FORMS += \
     mainwindow.ui

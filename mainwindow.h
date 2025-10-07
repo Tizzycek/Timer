@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "timercontroller.h"
 #include <QMainWindow>
 #include <QTime>
 
@@ -18,7 +19,7 @@ public:
 
 private slots:
     void startCountdown();     // quando si clicca "Avvia"
-    void updateCountdown();    // ogni secondo
+    void updateCountdown(QTime, unsigned);    // ogni secondo
     void startMyTask();        // quando il tempo scade
     void info();
     void modificaConfig();
@@ -29,7 +30,8 @@ private:
     QTimer *timer;
     QTime remainingTime;
     inline QString randomSentence();
-    void stopTimer(QString stopPath);
+    void stopTimer();
+    TimerController*controller;
 };
 
 #endif // MAINWINDOW_H

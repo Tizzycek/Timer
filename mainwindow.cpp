@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "timercontroller.h"
 #include "ui_mainwindow.h"
 #include "mytask.h"
 #include <QTimer>
@@ -19,6 +20,10 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     setWindowTitle("Timer");
 
     timer = new QTimer(this);
+
+    controller = new TimerController(this);
+    connect(controller, &TimerController::tick, this, &MainWindow::updateCountdown);
+    connect(controller, &TimerController::finished, this, &MainWindow::stopTimer);
 
     connect(ui->startButton, &QPushButton::clicked, this, &MainWindow::startCountdown);
     connect(ui->actionModifica_configurazioni, &QAction::triggered, this, &MainWindow::modificaConfig);
@@ -58,46 +63,42 @@ void MainWindow::startCountdown() {
     }
 
     QString stopPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/stop.flag";
-    // Mostra avviso
+
     QMessageBox msgBox;
     msgBox.setWindowTitle("Lo sapevi che...");
     msgBox.setText(randomSentence());
     msgBox.setIcon(QMessageBox::Information);
     msgBox.setStandardButtons(QMessageBox::Ok);
     msgBox.button(QMessageBox::Ok)->setText("Andiamo!");
-
     msgBox.exec();
+
     qDebug() << stopPath ;
     QFile::remove(stopPath);
     startMyTask();
 
-    // Inizializza tempo
-    remainingTime = QTime(hour, min, sec);
-    totalSeconds = hour * 3600 + min * 60 + sec;
+    controller->calculateTotalSec(hour, min, sec);
+    qDebug() << controller->totalSeconds();
+    qDebug() << controller->remaining();
 
     // Imposta progress bar
-    ui->progressBar->setMaximum(totalSeconds);
+    ui->progressBar->setMaximum(controller->totalSeconds());
 
-    if (!timer)
-        timer = new QTimer(this);
-    else
-        disconnect(timer, &QTimer::timeout, this, &MainWindow::updateCountdown);
-
-    connect(timer, &QTimer::timeout, this, &MainWindow::updateCountdown);
 
     ui->startButton->setEnabled(false);
     ui->minutesSpinBox->setEnabled(false);
     ui->secondsSpinBox->setEnabled(false);
     ui->hoursSpinBox->setEnabled(false);
 
-    timer->start(1000); // ogni secondo
+    controller->start();
 
-    updateCountdown(); // aggiorna subito
+    //timer->start(1000); // ogni secondo
+
+    //controller->update();
 }
 
-void MainWindow::stopTimer(QString stopPath)
+void MainWindow::stopTimer()
 {
-    timer->stop();
+    QString stopPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/stop.flag";
     QFile f(stopPath);
     f.open(QIODevice::WriteOnly);
     f.write("stop");
@@ -121,18 +122,10 @@ void MainWindow::stopTimer(QString stopPath)
     ui->timerLabel->setText("È giunto il momento di decidere la tua scadenza");
 }
 
-void MainWindow::updateCountdown() {
-    remainingTime = remainingTime.addSecs(-1);
-
-    int elapsed = totalSeconds - (remainingTime.hour() * 3600 + remainingTime.minute() * 60 + remainingTime.second());
+void MainWindow::updateCountdown(QTime remaining, unsigned elapsed) {
     ui->progressBar->setValue(elapsed);
 
-    ui->timerLabel->setText("Tempo rimanente: " + remainingTime.toString("hh:mm:ss"));
-
-    QString stopPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/stop.flag";
-    if (remainingTime == QTime(0, 0, 0)) {
-        stopTimer(stopPath);
-    }
+    ui->timerLabel->setText("Tempo rimanente: " + remaining.toString("hh:mm:ss"));
 }
 
 

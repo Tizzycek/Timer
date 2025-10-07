@@ -29,6 +29,7 @@ private:
     QTimer *timer;
     QTime remainingTime;
     inline QString randomSentence();
+    void stopTimer(QString stopPath);
 };
 
 #endif // MAINWINDOW_H

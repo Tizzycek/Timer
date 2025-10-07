@@ -30,7 +30,14 @@ Source: "libstdc++-6.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "libwinpthread-1.dll"; DestDir: "{app}"; Flags: ignoreversion
 
 ; Secondo programma e risorse
-Source: "ASCIIVideoPlayer\*"; DestDir: "{app}\ASCIIVideoPlayer"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "ASCIIVideoPlayer\default_video\*"; DestDir: "{app}\ASCIIVideoPlayer\default_video"; Flags: ignoreversion 
+Source: "ASCIIVideoPlayer\default_music.mp3"; DestDir: "{app}\ASCIIVideoPlayer"; Flags: ignoreversion 
+Source: "ASCIIVideoPlayer\ASCIIVideoPlayer.exe"; DestDir: "{app}\ASCIIVideoPlayer"; Flags: ignoreversion 
+Source: "ASCIIVideoPlayer\SDL2.dll"; DestDir: "{app}\ASCIIVideoPlayer"; Flags: ignoreversion 
+Source: "ASCIIVideoPlayer\SDL2_mixer.dll"; DestDir: "{app}\ASCIIVideoPlayer"; Flags: ignoreversion 
+Source: "ASCIIVideoPlayer\libgcc_s_seh-1.dll"; DestDir: "{app}\ASCIIVideoPlayer"; Flags: ignoreversion 
+Source: "ASCIIVideoPlayer\libstdc++-6.dll"; DestDir: "{app}\ASCIIVideoPlayer"; Flags: ignoreversion 
+Source: "ASCIIVideoPlayer\libwinpthread-1.dll"; DestDir: "{app}\ASCIIVideoPlayer"; Flags: ignoreversion 
 
 Source: "config"; DestDir: "{userappdata}\Timer"; Flags: ignoreversion
 

@@ -9,9 +9,7 @@
 #include <QStandardPaths>
 #include <QDesktopServices>
 
-MainWindow::MainWindow(QWidget *parent)
-    : QMainWindow(parent)
-    , ui(new Ui::MainWindow)
+MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
 
@@ -38,7 +36,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::info(){
-    QMessageBox::about(this, "A proposito", "Timer\nVer 1.0\n© Tiziano Ceccon, 2025");
+    QMessageBox::about(this, "A proposito", "Timer\nVer 1.1\n© Tiziano Ceccon, 2025");
 }
 
 void MainWindow::modificaConfig(){
@@ -97,6 +95,32 @@ void MainWindow::startCountdown() {
     updateCountdown(); // aggiorna subito
 }
 
+void MainWindow::stopTimer(QString stopPath)
+{
+    timer->stop();
+    QFile f(stopPath);
+    f.open(QIODevice::WriteOnly);
+    f.write("stop");
+    f.close();
+
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Timer scaduto");
+    msgBox.setText("Il nostro tempo è terminato");
+    msgBox.setIcon(QMessageBox::Critical);
+    msgBox.setStandardButtons(QMessageBox::Ok);
+    msgBox.button(QMessageBox::Ok)->setText("Oh no!");
+
+    msgBox.exec();
+
+    ui->startButton->setEnabled(true);
+    ui->minutesSpinBox->setEnabled(true);
+    ui->secondsSpinBox->setEnabled(true);
+    ui->hoursSpinBox->setEnabled(true);
+
+    ui->progressBar->setValue(0);
+    ui->timerLabel->setText("È giunto il momento di decidere la tua scadenza");
+}
+
 void MainWindow::updateCountdown() {
     remainingTime = remainingTime.addSecs(-1);
 
@@ -107,25 +131,7 @@ void MainWindow::updateCountdown() {
 
     QString stopPath = QStandardPaths::writableLocation(QStandardPaths::AppDataLocation) + "/stop.flag";
     if (remainingTime == QTime(0, 0, 0)) {
-        timer->stop();
-        QFile f(stopPath);
-        f.open(QIODevice::WriteOnly);
-        f.write("stop");
-        f.close();
-
-        QMessageBox msgBox;
-        msgBox.setWindowTitle("Timer scaduto");
-        msgBox.setText("Il nostro tempo è terminato");
-        msgBox.setIcon(QMessageBox::Critical);
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.button(QMessageBox::Ok)->setText("Oh no!");
-
-        msgBox.exec();
-
-        ui->startButton->setEnabled(true);
-        ui->minutesSpinBox->setEnabled(true);
-        ui->secondsSpinBox->setEnabled(true);
-        ui->hoursSpinBox->setEnabled(true);
+        stopTimer(stopPath);
     }
 }
 

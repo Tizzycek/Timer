@@ -101,7 +101,7 @@ Il mondo continuerà a girare indifferente? Sarò riuscito ad aiutare qualcuno i
 
 Nel nostro mondo, tutto è destinato a cessare. Basti pensare a ogni singola giornata: ha un inizio, e una fine. 
 
-È il modo in cui la si trascorre che può fare la differenza. Tanto si arriverà al tramonto, ma intanto la si può sfruttare al meglio. E non vale la pena viverla da arrabbiati o tristi... anche perché siamo più belli quando ridiamo.  
+È il modo in cui la si trascorre che può fare la differenza. Tanto si arriverà al tramonto, ma intanto la si può sfruttare al meglio. E non vale la pena viverla da arrabbiati o tristi... Anche perché siamo più belli quando ridiamo.  
 
 E che poi, alla fine, cos'è un tramonto? \
 **Un tramonto è la prova che anche lo scadere del tempo può essere un momento meraviglioso.**
@@ -111,6 +111,48 @@ E che poi, alla fine, cos'è un tramonto? \
 Come framework per comporre tutto è stato utilizzato `Qt`. 
 
 Per quanto riguarda invece il riproduttore di video in ASCII, è stato riutilizzato, riadattandolo ove necessario, il codice di [ASCIIVideoPlayer](https://github.com/Tizzycek/ASCIIVideoPlayer).
+
+### Classi principali
+
+Il programma è composto da 3 classi principali:
+
+- Una classe per la gestione della finestra principale;
+- Una classe per la gestione della logica del timer;
+- Una classe per la gestione di ASCIIVideoPlayer.
+
+#### Finestra principale
+
+La classe della finestra principale `mainwindow` si occupa della gestione del programma. Crea infatti l'oggetto che si occuperà della logica del timer nel suo costruttore, e inizializza tutti gli elementi.
+
+Gli elementi che compongono la finestra sono:
+
+- Un'etichetta che descrive in brevissimo l'applicazione, e che mostrerà l'avanzamento del conto alla rovescia alla sua partenza;
+- `SpinBox` per impostare la durata del timer
+  - La durata massima programmabile è 23 ore, 59 minuti e 59 secondi;
+- `ProgressBar` che mostra l'avanzamento del timer;
+- Menù a tenda per mostrare alcune opzioni, tra cui:
+  - Un pulsante che apre il file per le configurazioni di *ASCIIVideoPlayer*;
+  - Un pulsante per mostrare le informazioni sull'applicazione;
+- Un pulsante principale per avviare il conto alla rovescia.
+
+Prima dell'avvio del timer viene mostrata una frase, parte di una raccolta di aforismi e citazioni sul tempo. \
+Attualmente le proposizioni sono 134, e vengono scelte in maniera casuale al click sul pulsante per avviare il timer.
+
+#### Controllo del timer
+
+La classe di controllo del timer `timercontroller` è una classe piuttosto tecnica.
+
+Contiene infatti gli strumenti per la gestione del tempo, il calcolo dei secondi totali, e di quelli rimanenti.
+
+Interagisce con la classe principale tramite dei segnali, invocati con `emit`. 
+
+#### Gestione di ASCIIVideoPlayer
+
+La classe `mytask` si occupa di lanciare *ASCIIVideoPlayer*.
+
+Il suo funzionamento è molto semplice: chiama il terminale che si occupa di chiamare l'eseguibile dell'applicazione. 
+
+La scelta di questa modalità è spiegata nel paragrafo successivo. 
 
 ### ASCIIVideoPlayer come applicazione esterna
 
@@ -166,11 +208,9 @@ L'installazione è molto semplice, in quanto è sufficiente scaricare la _releas
 > 
 > In ogni caso, la versione è la stessa che vedete pubblicata su GitHub. Se non vi fidaste, potreste provare a compilarla voi stessi.
 
-### Configurazione di InnoSetup
+### Configurazione per Windows di InnoSetup
 
-Per distribuire l'applicazione e permettere l'installazione agli utenti finali, è stato utilizzato `InnoSetup`. 
-
-> Attualmente, è disponibile una versione solo per Windows.
+Per distribuire l'applicazione e permettere l'installazione agli utenti finali, è stato utilizzato `InnoSetup`.
 
 Il file di configurazione si trova nella cartella di release. Provvede a:
 - copiare l'eseguibile e tutte le sue dipendenze;

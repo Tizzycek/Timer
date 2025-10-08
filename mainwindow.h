@@ -18,12 +18,11 @@ public:
     ~MainWindow();
 
 private slots:
-    void startCountdown();     // quando si clicca "Avvia"
-    void updateCountdown(QTime, unsigned);    // ogni secondo
-    void startMyTask();        // quando il tempo scade
+    void startCountdown();
+    void updateCountdown(QTime, unsigned);
+    void startMyTask();
     void info();
     void modificaConfig();
-    //void chiudi();
 
 private:
     Ui::MainWindow *ui;

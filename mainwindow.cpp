@@ -29,9 +29,9 @@ MainWindow::MainWindow(QWidget *parent):QMainWindow(parent),ui(new Ui::MainWindo
     connect(ui->actionModifica_configurazioni, &QAction::triggered, this, &MainWindow::modificaConfig);
     connect(ui->actionA_proposito, &QAction::triggered, this, &MainWindow::info);
 
-    ui->hoursSpinBox->setRange(0, 24);
-    ui->minutesSpinBox->setRange(0, 60);
-    ui->secondsSpinBox->setRange(0, 60);
+    ui->hoursSpinBox->setRange(0, 23);
+    ui->minutesSpinBox->setRange(0, 59);
+    ui->secondsSpinBox->setRange(0, 59);
 
     ui->progressBar->setValue(0);
 }

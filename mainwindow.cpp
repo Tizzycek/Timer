@@ -41,7 +41,7 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::info(){
-    QMessageBox::about(this, "A proposito", "Timer\nVer 1.1\n© Tiziano Ceccon, 2025");
+    QMessageBox::about(this, "A proposito", "Timer\nVer 2.0\n© Tiziano Ceccon, 2025");
 }
 
 void MainWindow::modificaConfig(){

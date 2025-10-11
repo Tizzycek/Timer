@@ -67,4 +67,6 @@ compile_commands.json
 /build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/Output
 /build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/.qtc_clangd
 
+/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd
+
 *.mp3

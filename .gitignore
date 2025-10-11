@@ -28,7 +28,7 @@ qrc_*.cpp
 ui_*.h
 *.qmlc
 *.jsc
-*Makefile
+Makefile*
 !build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/ASCIIVideoPlayer/Makefile
 !build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/ASCIIVideoPlayer/Makefile
 *build-*

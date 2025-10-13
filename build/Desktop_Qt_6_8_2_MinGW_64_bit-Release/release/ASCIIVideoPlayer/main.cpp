@@ -43,8 +43,8 @@ string getAppDataPath(const string& subfolder) {
 }
 #else
 string getAppDataPath(const string& subfolder) {
-    const char* home = getenv("XDG_CONFIG_HOME");
-    string base = home ? string(home) : (string(getenv("HOME")) + SLASH + ".config");
+    const char* dataHome = getenv("XDG_DATA_HOME");
+    string base = dataHome ? string(dataHome) : (string(getenv("HOME")) + "/.local/share");
     string fullPath = base + SLASH + subfolder;
     filesystem::create_directories(fullPath);
     return fullPath;

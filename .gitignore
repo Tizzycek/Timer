@@ -58,17 +58,17 @@ compile_commands.json
 
 /build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/frames1_txt/
 
-/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/ASCIIVideoPlayer/default_video
+/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/ASCIIVideoPlayer/default_video/
 
-/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/ASCIIVideoPlayer/SDL2
-/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/ASCIIVideoPlayer/SDL2_mixer
+/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/ASCIIVideoPlayer/SDL2/
+/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/ASCIIVideoPlayer/SDL2_mixer/
 
-/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/ASCIIVideoPlayer/SDL2
-/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/ASCIIVideoPlayer/SDL2_mixer
+/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/ASCIIVideoPlayer/SDL2/
+/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/ASCIIVideoPlayer/SDL2_mixer/
 
-/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/Output
-/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/.qtc_clangd
+/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/Output/
+/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/.qtc_clangd/
 
-/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd
+/build/Desktop_Qt_6_8_2_MinGW_64_bit-Debug/.qtc_clangd/
 
 *.mp3

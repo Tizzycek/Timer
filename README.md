@@ -216,4 +216,18 @@ Il file di configurazione si trova nella cartella di release. Provvede a:
 - copiare l'eseguibile e tutte le sue dipendenze;
 - creare, durante l'installazione, una cartella locale per il file delle configurazioni. 
 
-Ovviamente, prima di configurare il file, è opportuno testare il funzionamento del codice, prestando attenzione all'inclusione di tutte le dipendenze necessarie per il corretto funzionamento dell'applicazione. 
+Ovviamente, prima di configurare il file, è opportuno testare il funzionamento del codice, prestando attenzione all'inclusione di tutte le dipendenze necessarie per il corretto funzionamento dell'applicazione.
+
+### Configurazione per Debian/Ubuntu
+
+Per distribuire l'applicazione a chi utilizza un sistema basato su `Debian`, è stato utilizzato uno script per generare un pacchetto `.deb`. 
+
+Lo script di generazione si trova nella cartella di release. Provvede a:
+- Copiare l'applicazione;
+- Copiare *ASCIIVideoPlayer*;
+  - Copiare files, musica e configurazioni dello stesso;
+- Generare uno script **post-installazione** che creerà le cartelle locali per tutti gli utenti;
+- Generare uno script **pre-rimozione**, che rimuoverà le cartelle locali durante la disinstallazione.
+
+Per installare il pacchetto bisogna essere utenti `sudo`, eseguendo il comando `dpkg -i`. \
+L'installazione potrebbe fallire nel caso in cui le dipendenze non siano presenti. Sarà sufficiente digitare il comando `apt-get install -f`, e, al termine, ripetere il comando precedente. 

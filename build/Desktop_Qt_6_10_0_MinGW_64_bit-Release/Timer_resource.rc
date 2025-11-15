@@ -1,6 +1,6 @@
 #include <windows.h>
 
-IDI_ICON1	ICON	"C:\\Users\\Tizia\\Documents\\Timer1\\pendulum.ico"
+IDI_ICON1	ICON	"F:\\Progetti_Qt\\Timer\\pendulum.ico"
 
 VS_VERSION_INFO VERSIONINFO
 	FILEVERSION 0,0,0,0
@@ -23,8 +23,8 @@ VS_VERSION_INFO VERSIONINFO
 				VALUE "FileDescription", "\0"
 				VALUE "FileVersion", "0.0.0.0\0"
 				VALUE "LegalCopyright", "\0"
-				VALUE "OriginalFilename", "Timer1.exe\0"
-				VALUE "ProductName", "Timer1\0"
+				VALUE "OriginalFilename", "Timer.exe\0"
+				VALUE "ProductName", "Timer\0"
 				VALUE "ProductVersion", "0.0.0.0\0"
 				VALUE "InternalName", "\0"
 				VALUE "Comments", "\0"

@@ -2,17 +2,18 @@
 CC = gcc
 CXX = g++
 
+# Flags di compilazione
+CFLAGS = -Wall -Wextra
+CXXFLAGS = -Wall -Wextra
+
 ifeq ($(OS), Windows_NT)
 	WINDRES = windres
 	RM = del
 else
-	WINDRES = 
-	RM = rm
+	WINDRES =
+	RM = rm -f
 endif
 
-# Flags di compilazione
-CFLAGS = -Wall -Wextra
-CXXFLAGS = -Wall -Wextra
 
 # Directory di inclusione librerie SDL2
 # Su Linux, i percorsi vanno modificati solo se le librerie SDL2 non sono state installate globalmente nel sistema.
@@ -54,4 +55,4 @@ main.o: main.cpp audio.h video.h
 	$(CXX) -c $< -o $@ $(CXXFLAGS)
 
 clean:
-	$(RM) -f $(OBJS) $(TARGET)
+	$(RM) $(OBJS) $(TARGET)

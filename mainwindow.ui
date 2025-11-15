@@ -57,7 +57,7 @@
      <rect>
       <x>310</x>
       <y>170</y>
-      <width>42</width>
+      <width>61</width>
       <height>25</height>
      </rect>
     </property>
@@ -67,7 +67,7 @@
      <rect>
       <x>450</x>
       <y>170</y>
-      <width>42</width>
+      <width>61</width>
       <height>25</height>
      </rect>
     </property>
@@ -75,9 +75,9 @@
    <widget class="QSpinBox" name="hoursSpinBox">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>160</x>
       <y>170</y>
-      <width>42</width>
+      <width>61</width>
       <height>25</height>
      </rect>
     </property>
@@ -98,14 +98,17 @@
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>170</x>
+      <x>158</x>
       <y>140</y>
-      <width>49</width>
-      <height>16</height>
+      <width>61</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
      <string>Ore</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
@@ -113,12 +116,15 @@
      <rect>
       <x>310</x>
       <y>140</y>
-      <width>71</width>
-      <height>16</height>
+      <width>61</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
      <string>Minuti</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="label_3">
@@ -127,11 +133,14 @@
       <x>450</x>
       <y>140</y>
       <width>61</width>
-      <height>16</height>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
      <string>Secondi</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignmentFlag::AlignCenter</set>
     </property>
    </widget>
   </widget>
@@ -141,7 +150,7 @@
      <x>0</x>
      <y>0</y>
      <width>692</width>
-     <height>21</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menua">

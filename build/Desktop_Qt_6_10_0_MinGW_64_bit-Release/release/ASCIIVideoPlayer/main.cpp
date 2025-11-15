@@ -53,8 +53,6 @@ string getAppDataPath(const string& subfolder) {
 
 // Controllo del file
 void load_info(string& frame_path, string& music_path, unsigned int& fps) {
-    //ifstream file(FILE);
-
     string localDir = getAppDataPath("Timer");
     string localPath = localDir + SLASH + "config";
     ifstream file(localPath);
@@ -91,6 +89,8 @@ void load_info(string& frame_path, string& music_path, unsigned int& fps) {
     // 6. Verifica righe extra (opzionale)
     if (string extra_line; getline(file, extra_line))
         cout << "Attenzione: il file di configurazione contiene righe extra (ignorate)" << endl;
+
+    file.close();
 }
 
 void monitorStopFile() {
@@ -111,29 +111,54 @@ int check_stop() { return stop_requested.load(); }
 int main() {
     string frame_path;
     string music_path;
+
     unsigned int fps;
 
     try {
         load_info(frame_path, music_path, fps);
+        cout << "Caricamento configurazioni => [OK]" << endl;
     } catch (exception& e) {
+        cerr << "Caricamento configurazioni => [FALLITO]" << endl;
         cerr << "Errore: " << e.what() << endl;
-        return 2;
+        cerr << "Premere INVIO per continuare";
+        getchar();
+        return 1;
+    }
+
+    Audio audio(music_path);
+
+    try {
+        audio.startAudio();
+        cout << "Caricamento audio => [OK]" << endl;
+    } catch (exception& e) {
+        cerr << "Caricamento audio => [FALLITO]" << endl;
+        cerr << "Errore: " << e.what() << endl;
+        cerr << "Premere INVIO per continuare";
+        getchar();
+        return 3;
     }
 
     FrameNode* frames = load_frames(frame_path.c_str());
 
-    if (frames == nullptr)
-        return 1;
-
+    if (frames == nullptr) {
+        cerr << "Caricamento frames => [FALLITO]" << endl;
+        cerr << "Premere INVIO per continuare";
+        getchar();
+        return 2;
+    }
+    else
+        cout << "\rCaricamento frames => [OK]" << endl;
 
     thread stopper(monitorStopFile);
 
     while (!check_stop()) {
-        thread first(play_frames, frames, fps, check_stop);
-        thread second(startAudio, music_path);
+        thread videoThread(play_frames, frames, fps);
+        thread audioThread([&audio] {
+            audio.playAudio();
+        });
 
-        first.join();
-        second.join();
+        videoThread.join();
+        audioThread.join();
     }
 
     stopper.join();

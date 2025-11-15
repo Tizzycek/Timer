@@ -20,12 +20,12 @@ cp config deb-build/${APP_NAME}-${VERSION}/opt/timer/
 cp ASCIIVideoPlayer/ASCIIVideoPlayer deb-build/${APP_NAME}-${VERSION}/opt/timer/ASCIIVideoPlayer/
 
 mkdir -p deb-build/${APP_NAME}-${VERSION}/opt/timer/ASCIIVideoPlayer/txt
-cp -r ASCIIVideoPlayer/txt/ deb-build/${APP_NAME}-${VERSION}/opt/timer/ASCIIVideoPlayer/txt/
-cp ASCIIVideoPlayer/My.mp3 deb-build/${APP_NAME}-${VERSION}/opt/timer/ASCIIVideoPlayer/
+cp -r ASCIIVideoPlayer/default_video/ deb-build/${APP_NAME}-${VERSION}/opt/timer/ASCIIVideoPlayer/default_video/
+cp ASCIIVideoPlayer/default_music.mp3 deb-build/${APP_NAME}-${VERSION}/opt/timer/ASCIIVideoPlayer/
 
 # COPIA SOLO L'ICONA 256x256 (LA PIÙ IMPORTANTE)
-if [ -f "../../../../pendulum.png" ]; then
-    cp ../../../../pendulum.png deb-build/${APP_NAME}-${VERSION}/usr/share/icons/hicolor/256x256/apps/timer.png
+if [ -f "../../../pendulum.png" ]; then
+    cp ../../../pendulum.png deb-build/${APP_NAME}-${VERSION}/usr/share/icons/hicolor/256x256/apps/timer.png
     echo "Icona copiata: 256x256"
 else
     echo "Warning: icon.png non trovata, creo placeholder..."

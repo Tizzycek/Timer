@@ -44,11 +44,12 @@ DWORD WINAPI spinner_thread(LPVOID param) {
     HANDLE hEvent = (HANDLE)param;
     int i = 0;
 
-    printf("Caricamento in corso. Non chiudere questa finestra.  ");
+    // printf("Caricamento in corso. Non chiudere questa finestra.  ");
 
     while (WaitForSingleObject(hEvent, 100) == WAIT_TIMEOUT) {
         const char signs[4] = {'|', '/', '-', '\\'};
-        printf("\b%c", signs[i % 4]);
+        //printf("\b%c", signs[i % 4]);
+        printf("\rCaricamento frames => [%c]", signs[i % 4]);
         fflush(stdout);
         i++;
     }
@@ -70,11 +71,11 @@ FrameNode* load_frames(const char *dir_path/*, int *out_frame_count*/) {
     hFind = FindFirstFile(search_path, &find_file_data);
 
     if (hFind == INVALID_HANDLE_VALUE) {
-        printf("Directory non trovata o errore di accesso (search_path: %s)\n", search_path);
         SetEvent(hEvent);
         WaitForSingleObject(hThread, INFINITE);
         CloseHandle(hThread);
         CloseHandle(hEvent);
+        printf("\rDirectory non trovata o errore di accesso\n");
         return NULL;
     }
 
@@ -91,11 +92,11 @@ FrameNode* load_frames(const char *dir_path/*, int *out_frame_count*/) {
     FindClose(hFind);
 
     if (file_count == 0) {
-        printf("Nessun frame trovato\n");
         SetEvent(hEvent);
         WaitForSingleObject(hThread, INFINITE);
         CloseHandle(hThread);
         CloseHandle(hEvent);
+        printf("\rNessun frame trovato\n");
         return NULL;
     }
 
@@ -109,7 +110,7 @@ FrameNode* load_frames(const char *dir_path/*, int *out_frame_count*/) {
 
         FILE *file = fopen(filepath, "r");
         if (!file) {
-            printf("Impossibile aprire %s\n", filepath);
+            printf("\rImpossibile aprire %s\n", filepath);
             continue;
         }
 
@@ -152,19 +153,19 @@ FrameNode* load_frames(const char *dir_path/*, int *out_frame_count*/) {
     return head;
 }
 
-void play_frames(const FrameNode *head, int fps, const StopFn stop_fn) {
+void play_frames(FrameNode *head, int fps) {
     if (fps <= 0) fps = 1;
-    const int delay_ms = 1000 / fps;
+    int delay_ms = 1000 / fps;
 
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
-    while (head != NULL && !stop_fn()) {
+    while (head != NULL && !check_stop()) {
         // pulizia
-        const COORD coord = {0, 0};
+        COORD coord = {0, 0};
         DWORD written;
         CONSOLE_SCREEN_BUFFER_INFO csbi;
         GetConsoleScreenBufferInfo(hConsole, &csbi);
-        const int console_size = csbi.dwSize.X * csbi.dwSize.Y;
+        int console_size = csbi.dwSize.X * csbi.dwSize.Y;
         FillConsoleOutputCharacter(hConsole, ' ', console_size, coord, &written);
         SetConsoleCursorPosition(hConsole, coord);
 
@@ -188,10 +189,11 @@ static int spinner_running = 1;
 void* spinner_thread(void *arg) {
     const char signs[4] = {'|', '/', '-', '\\'};
     int i = 0;
-    printf("Caricamento in corso. Non chiudere questa finestra.  ");
+    //printf("Caricamento in corso. Non chiudere questa finestra.  ");
     fflush(stdout);
     while (spinner_running) {
-        printf("\b%c", signs[i % 4]);
+        //printf("\b%c", signs[i % 4]);
+        printf("\rCaricamento frames => [%c]", signs[i % 4]);
         fflush(stdout);
         i++;
         usleep(100000); // 100 ms
@@ -225,9 +227,9 @@ FrameNode* load_frames(const char *dir_path/*, int *out_frame_count*/) {
     closedir(dir);
 
     if (file_count == 0) {
-        printf("Nessun frame trovato\n");
         spinner_running = 0;
         pthread_join(spinner, NULL);
+        printf("\rNessun frame trovato\n");
         return NULL;
     }
 
@@ -266,16 +268,16 @@ FrameNode* load_frames(const char *dir_path/*, int *out_frame_count*/) {
     spinner_running = 0;
     pthread_join(spinner, NULL);
 
-    printf("\nTotale frame caricati: %d\n", file_count);
+    //printf("\nTotale frame caricati: %d\n", file_count);
     return head;
 }
 
 // Riproduzione (Linux, usa printf e ANSI escape)
-void play_frames(FrameNode *head, int fps, const StopFn stop_fn) {
+void play_frames(FrameNode *head, int fps) {
     if (fps <= 0) fps = 1;
     int delay_us = 1000000 / fps;
 
-    while (head != NULL && !stop_fn()) {
+    while (head != NULL && !check_stop()) {
         printf("\033[H\033[J"); // clear screen ANSI
 
         for (int i = 0; i < head->frame.line_count; i++) {

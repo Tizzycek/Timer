@@ -4,17 +4,17 @@
   <component name="MakefileSettings">
     <option name="linkedExternalProjectsSettings">
       <MakefileProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/ASCIIVideoPlayer" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/ASCIIVideoPlayer" />
+            <option value="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release" />
           </set>
         </option>
         <option name="version" value="2" />
       </MakefileProjectSettings>
     </option>
   </component>
-  <component name="MakefileWorkspace" PROJECT_DIR="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release/release/ASCIIVideoPlayer">
+  <component name="MakefileWorkspace" PROJECT_DIR="$PROJECT_DIR$/build/Desktop_Qt_6_8_2_MinGW_64_bit-Release">
     <contentRoot DIR="$PROJECT_DIR$" />
   </component>
 </project>

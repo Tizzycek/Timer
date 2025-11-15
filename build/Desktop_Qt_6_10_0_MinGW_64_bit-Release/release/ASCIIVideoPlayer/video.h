@@ -20,8 +20,6 @@ typedef struct FrameNode {
     struct FrameNode *next;
 } FrameNode;
 
-typedef int (*StopFn)(void);
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -29,6 +27,8 @@ extern "C" {
 char* read_line_dynamic(FILE *);
 
 int compare_filenames(const void *, const void *);
+
+extern int check_stop();
 
 #ifdef _WIN32
 
@@ -38,7 +38,7 @@ DWORD WINAPI spinner_thread(LPVOID param);
 
 FrameNode* load_frames(const char */*, int **/);
 
-void play_frames(const FrameNode *, int, StopFn);
+void play_frames(FrameNode *, int);
 
 #else
 
@@ -50,7 +50,7 @@ void* spinner_thread(void *);
 
 FrameNode* load_frames(const char */*, int **/);
 
-void play_frames(FrameNode *, int, StopFn);
+void play_frames(FrameNode *, int);
 
 #endif //_WIN32
 

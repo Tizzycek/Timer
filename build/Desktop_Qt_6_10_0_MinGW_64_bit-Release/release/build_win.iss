@@ -1,6 +1,6 @@
 [Setup]
 AppName=Timer
-AppVersion=1.0
+AppVersion=2.0
 DefaultDirName={pf}\Timer
 DefaultGroupName=Timer
 OutputBaseFilename=TimerInstaller
@@ -37,7 +37,6 @@ Source: "ASCIIVideoPlayer\SDL2.dll"; DestDir: "{app}\ASCIIVideoPlayer"; Flags: i
 Source: "ASCIIVideoPlayer\SDL2_mixer.dll"; DestDir: "{app}\ASCIIVideoPlayer"; Flags: ignoreversion 
 Source: "ASCIIVideoPlayer\libgcc_s_seh-1.dll"; DestDir: "{app}\ASCIIVideoPlayer"; Flags: ignoreversion 
 Source: "ASCIIVideoPlayer\libstdc++-6.dll"; DestDir: "{app}\ASCIIVideoPlayer"; Flags: ignoreversion 
-Source: "ASCIIVideoPlayer\libwinpthread-1.dll"; DestDir: "{app}\ASCIIVideoPlayer"; Flags: ignoreversion 
 
 Source: "config"; DestDir: "{userappdata}\Timer"; Flags: ignoreversion
 
